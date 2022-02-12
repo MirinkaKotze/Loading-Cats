@@ -30,44 +30,53 @@ function searchArea() {
     entryPoint.appendChild(searchContiainer);
 }
 
+  function showBreeds(data) {
+    if (data.length == 0) {
+      return
+    }
+    data.forEach(createAndShowBreed);
+  }
+
+
 // LOADING CATS DATA AND INSERTING IT INTO HTML
-function loadCats(data) {
-        const catsContainer = document.createElement('div');
-        catsContainer.classList.add('info__container');      
-            
-        const catsTitle = document.createElement('h4');
-        catsTitle.classList.add('info__title');  
-        catsTitle.innerText = `Title: ${data[0].name}`;
-      
-        const catDescription = document.createElement('p');
-        catDescription.classList.add('info__details'); 
-        catDescription.innerText = `Description: ${data[0].description}`;
-      
-        const catAdaptability = document.createElement('p');
-        catAdaptability.classList.add('info__details'); 
-        catAdaptability.innerText = `Adaptability: ${data[0].adaptability}`;
-      
-        const catAffectionlevel = document.createElement('p');
-        catAffectionlevel.classList.add('info__details'); 
-        catAffectionlevel.innerText = `Affectionlevel: ${data[0].affectionlevel}`;
+function createAndShowBreed(breed) {
+    
+    const catsContainer = document.createElement('div');
+    catsContainer.classList.add('info__container');      
+        
+    const catsTitle = document.createElement('h4');
+    catsTitle.classList.add('info__title');  
+    catsTitle.innerText = `Title: ${breed.name}`;
+  
+    const catDescription = document.createElement('p');
+    catDescription.classList.add('info__details'); 
+    catDescription.innerText = `Description: ${breed.description}`;
+  
+    const catAdaptability = document.createElement('p');
+    catAdaptability.classList.add('info__details'); 
+    catAdaptability.innerText = `Adaptability: ${breed.adaptability}`;
+  
+    const catAffectionlevel = document.createElement('p');
+    catAffectionlevel.classList.add('info__details'); 
+    catAffectionlevel.innerText = `Affectionlevel: ${breed.affectionlevel}`;
 
-        const catTemperament = document.createElement('p');
-        catTemperament.classList.add('info__details'); 
-        catTemperament.innerText = `Temperament: ${data[0].temperament}`;
+    const catTemperament = document.createElement('p');
+    catTemperament.classList.add('info__details'); 
+    catTemperament.innerText = `Temperament: ${breed.temperament}`;
 
-        const catLink = document.createElement('a');
-        catLink.classList.add('info__details'); 
-        catLink.textContent = 'More information';
-        catLink.href = `${data[0].vcahospitals_url}`;
-              
-        catsContainer.appendChild(catsTitle);
-        catsContainer.appendChild(catDescription);
-        catsContainer.appendChild(catAdaptability);
-        catsContainer.appendChild(catAffectionlevel);
-        catsContainer.appendChild(catTemperament);
-        catsContainer.appendChild(catLink);
-      
-       entryPoint.appendChild(catsContainer)
+    const catLink = document.createElement('a');
+    catLink.classList.add('info__details'); 
+    catLink.textContent = 'More information';
+    catLink.href = `${breed.vcahospitals_url}`;
+          
+    catsContainer.appendChild(catsTitle);
+    catsContainer.appendChild(catDescription);
+    catsContainer.appendChild(catAdaptability);
+    catsContainer.appendChild(catAffectionlevel);
+    catsContainer.appendChild(catTemperament);
+    catsContainer.appendChild(catLink);
+  
+    entryPoint.appendChild(catsContainer)
     }  
     
 // FETCHCALL FUNCTION(COPIED FROM ALEX'S CODE)
@@ -88,7 +97,7 @@ function fetchCb(url, cb) {
 // CREATE URL
   function createURL(searchBreed) {
     const searchURL = `https://api.thecatapi.com/v1/breeds/search?q=${searchBreed}`
-    fetchCb(searchURL, loadCats)
+    fetchCb(searchURL, showBreeds)
 }
 
 // ADD SEARCH FUNCTION AS SOON AS PAGE IS LOADED
